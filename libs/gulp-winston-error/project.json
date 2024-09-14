@@ -1,0 +1,36 @@
+{
+  "name": "gulp-error-reporter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "./",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "options": {
+        "main": "libs/gulp-error-reporter/index.ts",
+        "outputPath": "libs/gulp-error-reporter/build",
+        "outputFileName": "index.js",
+        "deleteOutputPath": true,
+        "tsConfig": "libs/gulp-error-reporter/tsconfig.json",
+        "babelConfig": "tools/config/babel/babel.config.json",
+        "webpackConfig": "tools/config/webpack/webpack.config.js"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/gulp-error-reporter/jest.config.ts",
+        "codeCoverage": true,
+        "coverageDirectory": "{workspaceRoot}/coverage/{projectRoot}",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/zod/**/*.ts"]
+      }
+    }
+  }
+}

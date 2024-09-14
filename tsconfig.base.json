@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@zilero/gulp-conditional": ["libs/gulp-conditional/index.ts"],
+      "@zilero/gulp-winston-error": ["libs/gulp-winston-error/index.ts"],
+      "@zilero/gulp-plugin-factory": ["libs/gulp-plugin-factory/index.ts"]
+    }
+  },
+  "include": ["global.d.ts"],
+  "exclude": ["node_modules", "tmp"]
+}

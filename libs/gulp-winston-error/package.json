@@ -1,0 +1,41 @@
+{
+  "name": "gulp-winston-error",
+  "description": "A Gulp plugin for minifying and optimizing images to reduce file sizes and enhance web performance.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Artemev Alexandr",
+    "url": "https://github.com/Zilero232"
+  },
+  "homepage": "https://github.com/Zilero232/gulp-plugins-hub",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zilero232/gulp-plugins-hub"
+  },
+  "bugs": {
+    "url": "https://github.com/Zilero232/gulp-plugins-hub/issues"
+  },
+  "scripts": {
+    "format": "prettier --write \"*.ts\"",
+    "lint": "eslint . --fix",
+    "lint-inspector": "npx @eslint/config-inspector"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">= 6.0"
+  },
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "devDependencies": {
+    "@types/winston": "^2.4.4",
+    "@nx/webpack": "^19.6.2",
+    "strip-ansi": "^6.0.1"
+  },
+  "dependencies": {
+    "winston": "^3.14.2",
+    "chalk": "4.1.2"
+  }
+}

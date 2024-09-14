@@ -1,0 +1,59 @@
+{
+  "name": "@zilero/gulp-plugins-hub",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "Artemev Alexandr",
+    "url": "https://github.com/Zilero232"
+  },
+  "keywords": [
+    "gulp",
+    "plugins"
+  ],
+  "bugs": {
+    "url": "https://github.com/Zilero232/gulp-plugins-hub"
+  },
+  "homepage": "https://github.com/Zilero232/gulp-plugins-hub",
+  "repository": {
+    "url": "https://github.com/Zilero232/gulp-plugins-hub"
+  },
+  "workspaces": [
+    "libs/*"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "lint-inspector": "npx @eslint/config-inspector",
+    "v:local-registry": "nx local-registry dev-config-hub",
+    "v:adduser": "pnpm adduser --registry http://localhost:4873/",
+    "v:set-password": "pnpm profile set password --registry http://localhost:4873/",
+    "v:publish": "pnpm publish --registry http://localhost:4873/",
+    "graph": "nx graph"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/format": "^19.5.0",
+    "@eslint/js": "^9.9.0",
+    "@nx/jest": "^19.6.5",
+    "@nx/js": "19.6.1",
+    "@nx/workspace": "19.6.1",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.5.0",
+    "@types/vinyl": "^2.0.12",
+    "beachball": "^2.47.1",
+    "commitlint": "^19.5.0",
+    "conventional-changelog-atom": "^5.0.0",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^15.9.0",
+    "husky": "^9.1.6",
+    "nx": "19.6.1",
+    "ts-jest": "^29.2.5",
+    "typescript-eslint": "^8.2.0",
+    "verdaccio": "^5.32.2",
+    "vinyl": "^3.0.0"
+  }
+}
