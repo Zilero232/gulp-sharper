@@ -6,7 +6,13 @@ interface TransportOptions {
   format?: unknown;
 }
 
-const createTransportConfig = <T extends TransportOptions>(options: boolean | T, defaultOptions: T): T => {
+interface CreateTransportConfigProps<T> {
+  pluginName: string;
+  options: boolean | T;
+  defaultOptions: T;
+}
+
+const createTransportConfig = <T extends TransportOptions>({ pluginName, options, defaultOptions }: CreateTransportConfigProps<T>): T => {
   if (isBoolean(options)) {
     return defaultOptions;
   }
@@ -15,8 +21,11 @@ const createTransportConfig = <T extends TransportOptions>(options: boolean | T,
 
   const combinedFormat = format
     ? createWinstonFormat({
-        ...(isObject(defaultOptions.format) ? defaultOptions.format : {}),
-        ...(isObject(format) ? format : {}),
+        pluginName,
+        options: {
+          ...(isObject(defaultOptions.format) ? defaultOptions.format : {}),
+          ...(isObject(format) ? format : {}),
+        },
       })
     : defaultOptions.format;
 

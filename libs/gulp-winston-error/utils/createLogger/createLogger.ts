@@ -4,13 +4,30 @@ import { createWinstonFormat, createTransportsOptions } from "@utils";
 
 import { GulpWinstonErrorOptions } from "@types";
 
-export const createWinstonLogger = (options: GulpWinstonErrorOptions): Logger => {
+interface CreateWinstonLoggerProps {
+  pluginName: string;
+  options: GulpWinstonErrorOptions;
+}
+
+export const createWinstonLogger = ({ pluginName, options }: CreateWinstonLoggerProps): Logger => {
   const loggerOptions: LoggerOptions = {
     ...options,
-    level: "info",
-    format: createWinstonFormat(options.format),
-    transports: createTransportsOptions(options),
-    exitOnError: false,
+    level: "error",
+    format: createWinstonFormat({
+      pluginName,
+      options: {
+        printf: true,
+        ...options.format,
+      },
+    }),
+    transports: createTransportsOptions({
+      pluginName: pluginName,
+      options: {
+        console: true,
+        ...options.transports,
+      },
+    }),
+    exitOnError: true,
     silent: false,
   };
 

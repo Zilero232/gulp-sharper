@@ -31,7 +31,6 @@
   "devDependencies": {
     "@types/through2": "^2.0.41",
     "@types/vinyl": "^2.0.12",
-    "@nx/webpack": "^19.6.2",
     "vinyl": "^3.0.0"
   },
   "dependencies": {

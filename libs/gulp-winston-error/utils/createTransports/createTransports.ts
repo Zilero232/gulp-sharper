@@ -5,56 +5,109 @@ import { createWinstonFormat } from "@utils";
 
 import createTransportConfig from "@helpers/createTransportConfig";
 
-import type { GulpWinstonErrorOptions, ConsoleTransportOptions, FileTransportOptions, HttpTransportOptions, StreamTransportOptions } from "@types";
+import type { TransportsOptions, ConsoleTransportOptions, FileTransportOptions, HttpTransportOptions, StreamTransportOptions } from "@types";
 
-export const createTransportsOptions = (options: GulpWinstonErrorOptions): Transport[] => {
+interface CreateTransportsOptionsProps {
+  pluginName: string;
+  options: TransportsOptions;
+}
+
+export const createTransportsOptions = ({ pluginName, options }: CreateTransportsOptionsProps): Transport[] => {
   const transportsOptions: Transport[] = [];
 
-  if (options.transports?.console) {
+  if (options?.console) {
     const defaultConsoleOptions: ConsoleTransportOptions = {
       format: createWinstonFormat({
-        timestamp: true,
-        colorize: true,
+        pluginName,
+        options: {
+          printf: true,
+          timestamp: true,
+          colorize: true,
+        },
       }),
     };
 
-    transportsOptions.push(new transports.Console(createTransportConfig(options.transports.console, defaultConsoleOptions)));
+    transportsOptions.push(
+      new transports.Console(
+        createTransportConfig<ConsoleTransportOptions>({
+          pluginName,
+          options: options.console,
+          defaultOptions: defaultConsoleOptions,
+        })
+      )
+    );
   }
 
-  if (options.transports?.file) {
+  if (options?.file) {
     const defaultFileOptions: FileTransportOptions = {
       filename: "application.log",
       format: createWinstonFormat({
-        timestamp: true,
-        json: true,
+        pluginName,
+        options: {
+          printf: true,
+          timestamp: true,
+          json: true,
+        },
       }),
     };
 
-    transportsOptions.push(new transports.File(createTransportConfig(options.transports.file, defaultFileOptions)));
+    transportsOptions.push(
+      new transports.File(
+        createTransportConfig({
+          pluginName,
+          options: options.file,
+          defaultOptions: defaultFileOptions,
+        })
+      )
+    );
   }
 
-  if (options.transports?.http) {
+  if (options?.http) {
     const defaultHttpOptions: HttpTransportOptions = {
       host: "localhost",
       path: "/log",
       format: createWinstonFormat({
-        timestamp: true,
+        pluginName,
+        options: {
+          printf: true,
+          timestamp: true,
+        },
       }),
     };
 
-    transportsOptions.push(new transports.Http(createTransportConfig(options.transports.http, defaultHttpOptions)));
+    transportsOptions.push(
+      new transports.Http(
+        createTransportConfig({
+          pluginName,
+          options: options.http,
+          defaultOptions: defaultHttpOptions,
+        })
+      )
+    );
   }
 
-  if (options.transports?.stream) {
+  if (options?.stream) {
     const defaultStreamOptions: StreamTransportOptions = {
       stream: process.stdout,
       format: createWinstonFormat({
-        timestamp: true,
-        simple: true,
+        pluginName,
+        options: {
+          printf: true,
+          timestamp: true,
+          simple: true,
+        },
       }),
     };
 
-    transportsOptions.push(new transports.Stream(createTransportConfig(options.transports.stream, defaultStreamOptions)));
+    transportsOptions.push(
+      new transports.Stream(
+        createTransportConfig({
+          pluginName,
+          options: options.stream,
+          defaultOptions: defaultStreamOptions,
+        })
+      )
+    );
   }
 
   return transportsOptions;

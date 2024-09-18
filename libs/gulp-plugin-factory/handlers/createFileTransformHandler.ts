@@ -1,8 +1,6 @@
-import PluginReporter from "@zilero/gulp-error-reporter";
+import { checkIsFile, handleUnknownError } from "../utils";
 
 import type { PluginFactoryOptions, Transformer, TransformStream } from "../types";
-
-import checkIsFile from "../utils/checkIsFile";
 
 export function createFileTransformHandler({
   pluginName,
@@ -25,13 +23,10 @@ export function createFileTransformHandler({
 
       return file;
     } catch (error: unknown) {
-      PluginReporter(
-        {
-          pluginName,
-          showStack: true,
-        },
-        error as Error
-      );
+      handleUnknownError({
+        pluginName,
+        error,
+      });
     }
   };
 }

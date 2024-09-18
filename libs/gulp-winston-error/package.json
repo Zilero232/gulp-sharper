@@ -1,6 +1,6 @@
 {
   "name": "gulp-winston-error",
-  "description": "A Gulp plugin for minifying and optimizing images to reduce file sizes and enhance web performance.",
+  "description": "A Gulp plugin for logging errors with Winston, providing enhanced error handling and reporting features during Gulp tasks.",
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
@@ -31,7 +31,6 @@
   "main": "index.js",
   "devDependencies": {
     "@types/winston": "^2.4.4",
-    "@nx/webpack": "^19.6.2",
     "strip-ansi": "^6.0.1"
   },
   "dependencies": {

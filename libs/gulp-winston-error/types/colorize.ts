@@ -1,6 +1,6 @@
 import { Logform as logform } from "winston";
 
-import { LogLevelKeys } from './logger'
+import { LogLevelKeys } from "./logger";
 
 // Text styles.
 type FontStyle =
@@ -37,7 +37,10 @@ type FontBackgroundColor =
   | "whiteBG"; // White background.
 
 // Combinations of text styles, foreground colors, and background colors for logs.
-export type LogColorScheme = `${FontStyle | ""} ${FontForegroundColor | ""} ${FontBackgroundColor | ""}`;
+export type LogColorScheme =
+  | `${FontForegroundColor}` // Single component present.
+  | `${FontForegroundColor} ${FontStyle}` // Two components present.
+  | `${FontForegroundColor} ${FontStyle} ${FontBackgroundColor}`; // All three components present.
 
 // Colorize options.
 export interface ColorizeOptions extends logform.ColorizeOptions {

@@ -1,5 +1,7 @@
+import through2 from "through2";
+
 import GulpPluginFactory from "@zilero/gulp-plugin-factory";
-import GulpErrorReporter from "@zilero/gulp-error-reporter";
+import GulpWinstonError from "@zilero/gulp-winston-error";
 
 import { checkCondition } from "./utils";
 
@@ -9,14 +11,14 @@ import type { GulpConditionalOptions } from "./types";
 
 const GulpConditional = ({ condition, onConditionMet, onConditionNotMet }: GulpConditionalOptions) => {
   if (typeof condition !== "boolean" || typeof condition !== "object") {
-    throw GulpErrorReporter({
+    GulpWinstonError({
       pluginName: PLUGIN_NAME,
       message: "Condition must be a boolean or an object with condition options.",
     });
   }
 
   if (!onConditionMet) {
-    throw GulpErrorReporter({
+    GulpWinstonError({
       pluginName: PLUGIN_NAME,
       message: "Transformer function is required and must be a function.",
     });

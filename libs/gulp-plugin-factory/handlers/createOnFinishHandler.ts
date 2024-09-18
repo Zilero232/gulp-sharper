@@ -1,6 +1,6 @@
 import { type Transform as TransformStream } from "node:stream";
 
-import PluginReporter from "@zilero/gulp-error-reporter";
+import { handleUnknownError } from "../utils/handleUnknownError/handleUnknownError";
 
 import type { PluginFactoryOptions, Flusher } from "../types";
 
@@ -14,13 +14,10 @@ export function createOnFinishHandler({ pluginName, onFinish }: PluginFactoryOpt
     try {
       await onFinish(stream);
     } catch (error: unknown) {
-      PluginReporter(
-        {
-          pluginName,
-          showStack: true,
-        },
-        error as Error
-      );
+      handleUnknownError({
+        pluginName,
+        error,
+      });
     }
   };
 }

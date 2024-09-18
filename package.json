@@ -24,13 +24,14 @@
   "scripts": {
     "prepare": "husky",
     "lint-inspector": "npx @eslint/config-inspector",
+    "graph": "nx graph",
     "v:local-registry": "nx local-registry dev-config-hub",
     "v:adduser": "pnpm adduser --registry http://localhost:4873/",
     "v:set-password": "pnpm profile set password --registry http://localhost:4873/",
-    "v:publish": "pnpm publish --registry http://localhost:4873/",
-    "graph": "nx graph"
+    "v:publish": "pnpm publish --registry http://localhost:4873/"
   },
   "devDependencies": {
+    "@nx/webpack": "^19.6.2",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@commitlint/format": "^19.5.0",

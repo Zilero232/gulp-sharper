@@ -1,21 +1,25 @@
 import through2, { type TransformCallback } from "through2";
 
-import PluginReporter from "@zilero/gulp-error-reporter";
+import GulpWinstonError from "@zilero/gulp-winston-error";
 
-import type { Transformer, Flusher, TransformStream } from "../types";
+import type { Transformer, Flusher, TransformStream } from "../../types";
 
-const createThroughStream = (transformer: Transformer, flusher: Flusher): TransformStream => {
+import { handleUnknownError } from "../handleUnknownError/handleUnknownError";
+
+import { PLUGIN_NAME } from "../../constants";
+
+export const createThroughStream = (transformer: Transformer, flusher: Flusher): TransformStream => {
   // Checking for the presence of the transformer function.
   if (!transformer || typeof transformer !== "function") {
-    throw PluginReporter({
-      pluginName: "Plugin",
+    GulpWinstonError({
+      pluginName: PLUGIN_NAME,
       message: "Transformer function is required and must be a function.",
     });
   }
 
   // Checking for the presence of the flusher function.
   if (flusher && typeof flusher !== "function") {
-    throw PluginReporter({
+    GulpWinstonError({
       pluginName: "Plugin",
       message: "Flusher function is required and must be a function.",
     });
@@ -31,8 +35,8 @@ const createThroughStream = (transformer: Transformer, flusher: Flusher): Transf
       if (file.isStream()) {
         // If the file is not a stream, we throw an error.
         callback(
-          PluginReporter({
-            pluginName: "Plugin",
+          GulpWinstonError({
+            pluginName: PLUGIN_NAME,
             message: "Streaming not supported.",
           })
         );
@@ -54,12 +58,10 @@ const createThroughStream = (transformer: Transformer, flusher: Flusher): Transf
       try {
         flusher(this);
       } catch (error: unknown) {
-        throw PluginReporter(
-          {
-            pluginName: "Plugin",
-          },
-          error as Error
-        );
+        handleUnknownError({
+          pluginName: PLUGIN_NAME,
+          error,
+        });
       }
     }
   );

@@ -12,13 +12,21 @@ import {
   createMsFormat,
   createPadLevelsFormat,
   createPrettyPrintFormat,
+  createPrintfFormat,
+  createSimpleFormat,
+  createSplatFormat,
   createTimestampFormat,
   createUncolorizeFormat,
 } from "@helpers/formatHelpers";
 
 import { FormatOptions } from "@types";
 
-export function createWinstonFormat(options: FormatOptions = {}): logform.Format {
+interface CreateWinstonFormatProps {
+  pluginName: string;
+  options: FormatOptions;
+}
+
+export function createWinstonFormat({ pluginName, options }: CreateWinstonFormatProps): logform.Format {
   const formats: logform.Format[] = [];
 
   if (options.align) {
@@ -66,15 +74,15 @@ export function createWinstonFormat(options: FormatOptions = {}): logform.Format
   }
 
   if (options.printf) {
-    formats.push(winstonFormat.printf(options.printf.templateFunction));
+    formats.push(createPrintfFormat(pluginName, options.printf));
   }
 
   if (options.simple) {
-    formats.push(winstonFormat.simple());
+    formats.push(createSimpleFormat(options.simple));
   }
 
   if (options.splat) {
-    formats.push(winstonFormat.splat());
+    formats.push(createSplatFormat(options.splat));
   }
 
   if (options.timestamp) {

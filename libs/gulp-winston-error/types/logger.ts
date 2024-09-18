@@ -14,8 +14,18 @@ export enum LOG_LEVELS {
   silly = "silly",
 }
 
+// Represents information that can be transformed or formatted in logging systems.
+export interface TransformableInfo {
+  level: string;
+  message: unknown;
+  [key: string | symbol]: unknown;
+}
+
 // Getting the type of LOG_LEVELS keys
 export type LogLevelKeys = keyof typeof LOG_LEVELS;
+
+// Represents a custom format function used to transform or format log information.
+type CustomFormatFunction = (info: TransformableInfo) => string;
 
 // Defines the possible formats for timestamps in logs.
 export type TimestampFormat =
@@ -28,7 +38,6 @@ export type TimestampFormat =
 
 // Configuration options for the GulpWinstonError plugin.
 export interface GulpWinstonErrorOptions extends Omit<LoggerOptions, "format" | "transports"> {
-  pluginName: string; // The name of the plugin (required).
   level?: LogLevelKeys; // Logging level.
   exitOnError?: boolean | ((err: Error) => void); // Behavior on error.
   format?: FormatOptions; // Format options.
@@ -48,7 +57,7 @@ export interface FormatOptions {
   ms?: boolean; // Add milliseconds to log.
   padLevels?: boolean | { levels: Record<LogLevelKeys, number> }; // Pad logging levels.
   prettyPrint?: boolean | logform.PrettyPrintOptions; // Pretty print output.
-  printf?: { templateFunction: (info: logform.TransformableInfo) => string }; // Custom format output.
+  printf?: boolean | CustomFormatFunction; // Custom format output.
   simple?: boolean; // Simple format.
   splat?: boolean; // Format with printf support.
   timestamp?: boolean | TimestampOptions; // Add timestamp.

@@ -7,13 +7,14 @@ import { isError } from "@helpers/typeHelpers";
 import type { GulpWinstonErrorOptions } from "@types";
 
 interface GulpWinstonErrorProps {
-  message: string;
-  options: GulpWinstonErrorOptions;
+  pluginName: string; // The name of the plugin (required).
+  message?: string;
+  options?: GulpWinstonErrorOptions;
   error?: Error;
 }
 
-const GulpWinstonError = ({ message, options, error }: GulpWinstonErrorProps) => {
-  if (!options.pluginName) {
+const GulpWinstonError = ({ pluginName, message = "", options = {}, error }: GulpWinstonErrorProps) => {
+  if (!pluginName) {
     throw new Error(`${chalk.green("GulpWinstonError")}: ${chalk.red("Missing PluginName")}`);
   }
 
@@ -27,15 +28,17 @@ const GulpWinstonError = ({ message, options, error }: GulpWinstonErrorProps) =>
     throw new Error(`${chalk.green("GulpWinstonError")}: ${chalk.red("Missing Message")}`);
   }
 
-  const logger = createWinstonLogger(options);
+  const logger = createWinstonLogger({ pluginName, options });
 
   if (error && error instanceof Error) {
     logger.error(logMessage, {
+      level: options.level as string,
       message: logMessage || error.message,
       stack: error.stack,
     });
   } else {
     logger.log({
+      level: options.level as string,
       message: logMessage,
     });
   }

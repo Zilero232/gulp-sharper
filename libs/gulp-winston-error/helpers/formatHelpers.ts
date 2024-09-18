@@ -2,7 +2,7 @@ import { format as winstonFormat, Logform as logform } from "winston";
 
 import { InvalidFormatError, getTimestampFormat } from "@utils";
 
-import { isBoolean, isObject, isString } from "@helpers/typeHelpers";
+import { isBoolean, isFunction, isObject, isString } from "@helpers/typeHelpers";
 
 import { FormatOptions, ColorizeOptions } from "@types";
 
@@ -36,7 +36,7 @@ export function createCliFormat(CliOption: FormatOptions["cli"]): logform.Format
 
 export function createColorizeFormat(colorizeOption: FormatOptions["colorize"]): logform.Format {
   const defaultColorizeOption: ColorizeOptions = {
-    color: {
+    colors: {
       error: "red",
       warn: "yellow",
       info: "green",
@@ -182,6 +182,53 @@ export function createPrettyPrintFormat(prettyPrintOption: FormatOptions["pretty
   });
 }
 
+export function createPrintfFormat(pluginName: string, printfOption: FormatOptions["printf"]): logform.Format {
+  if (isBoolean(printfOption)) {
+    return winstonFormat.printf(({ timestamp, level, message, stack, ...meta }) => {
+      let logOutput = "";
+
+      // If the timestamp is passed, add it before the rest of the fields.
+      if (timestamp) {
+        logOutput = `${timestamp} `;
+      }
+
+      // If there is an error stack, add it after the message.
+      if (stack) {
+        logOutput += `\nStack: ${stack}`;
+      }
+
+      logOutput += `[${level}] Plugin: ${pluginName} - ${message}`;
+
+      // Processing the rest of the metadata.
+      Object.entries(meta).forEach(([key, value]) => {
+        switch (value) {
+          case isBoolean(value):
+            // For Boolean values, we show true/false.
+            logOutput += `\n${key}: ${value}`;
+          case isObject(value):
+            // If the value is an object, output the key and formatted JSON.
+            logOutput += `\n${key}: ${JSON.stringify(value, null, 2)}`;
+          default:
+            // Otherwise, just output the key and its value.
+            logOutput += `\n${key}: ${value}`;
+        }
+      });
+
+      return logOutput;
+    });
+  }
+
+  if (isFunction(printfOption)) {
+    return winstonFormat.printf(printfOption);
+  }
+
+  throw new InvalidFormatError({
+    fieldName: "printf",
+    expectedType: "boolean or Function",
+    receivedValue: printfOption,
+  });
+}
+
 export function createTimestampFormat(timestampOption: FormatOptions["timestamp"]): logform.Format {
   if (isBoolean(timestampOption)) {
     return winstonFormat.timestamp();
@@ -197,6 +244,30 @@ export function createTimestampFormat(timestampOption: FormatOptions["timestamp"
     fieldName: "timestamp",
     expectedType: "boolean or TimestampOptions",
     receivedValue: timestampOption,
+  });
+}
+
+export function createSimpleFormat(simpleOption: FormatOptions["simple"]): logform.Format {
+  if (isBoolean(simpleOption)) {
+    return winstonFormat.simple();
+  }
+
+  throw new InvalidFormatError({
+    fieldName: "simple",
+    expectedType: "boolean",
+    receivedValue: simpleOption,
+  });
+}
+
+export function createSplatFormat(splatOption: FormatOptions["splat"]): logform.Format {
+  if (isBoolean(splatOption)) {
+    return winstonFormat.splat();
+  }
+
+  throw new InvalidFormatError({
+    fieldName: "splat",
+    expectedType: "boolean",
+    receivedValue: splatOption,
   });
 }
 

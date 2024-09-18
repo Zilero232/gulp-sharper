@@ -28,8 +28,5 @@
   "files": [
     "index.js"
   ],
-  "main": "index.js",
-  "devDependencies": {
-    "@nx/webpack": "^19.6.2"
-  }
+  "main": "index.js"
 }
