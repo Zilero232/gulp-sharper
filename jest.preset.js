@@ -10,5 +10,5 @@ module.exports = {
   resetMocks: true,
   coverageReporters: ["html"],
   moduleFileExtensions: ["ts", "js", "html"],
-  testMatch: ["**/+(*.)+(spec|test).+(ts|js)?(x)"]
+  testMatch: ["**/+(*.)+(spec|test).+(ts|js)?(x)"],
 };

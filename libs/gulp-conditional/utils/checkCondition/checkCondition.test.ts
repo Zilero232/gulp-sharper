@@ -1,4 +1,4 @@
-import GulpErrorReporter from "@zilero/gulp-error-reporter";
+import GulpWinstonError from "@zilero/gulp-winston-error";
 
 import { checkCondition, validateCondition } from "../";
 
@@ -10,7 +10,7 @@ jest.mock("../", () => ({
   validateCondition: jest.fn(),
 }));
 
-jest.mock("@zilero/gulp-error-reporter", () => jest.fn());
+jest.mock("@zilero/gulp-winston-error", () => jest.fn());
 
 describe("checkCondition", () => {
   const mockFile = { path: "test/file.txt" } as FileVinyl;
@@ -30,8 +30,8 @@ describe("checkCondition", () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect(() => checkCondition({ file: null as any, condition: mockCondition })).toThrow(errorMessage);
 
-    // Check that GulpErrorReporter is called with the correct arguments.
-    expect(GulpErrorReporter).toHaveBeenCalledWith({
+    // Check that GulpWinstonError is called with the correct arguments.
+    expect(GulpWinstonError).toHaveBeenCalledWith({
       pluginName: PLUGIN_NAME,
       message: errorMessage,
     });

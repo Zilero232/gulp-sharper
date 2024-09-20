@@ -19,8 +19,19 @@
     "rootDir": ".",
     "paths": {
       "@zilero/gulp-conditional": ["libs/gulp-conditional/index.ts"],
+      "@zilero/gulp-folder-clone": ["libs/gulp-folder-clone/index.ts"],
+      "@zilero/gulp-font-switcher": ["libs/gulp-font-switcher/index.ts"],
+      "@zilero/gulp-html-squeezer": ["libs/gulp-html-squeezer/index.ts"],
+      "@zilero/gulp-js-squeeze": ["libs/gulp-js-squeeze/index.ts"],
+      "@zilero/gulp-plugin-factory": ["libs/gulp-plugin-factory/index.ts"],
+      "@zilero/gulp-plugin-manager": ["libs/gulp-plugin-manager/index.ts"],
+      "@zilero/gulp-pug-compiler": ["libs/gulp-pug-compiler/index.ts"],
+      "@zilero/gulp-refilename": ["libs/gulp-refilename/index.ts"],
+      "@zilero/gulp-scss-squeezer": ["libs/gulp-scss-squeezer/index.ts"],
+      "@zilero/gulp-sharper": ["libs/gulp-sharper/index.ts"],
+      "@zilero/gulp-smart-changes": ["libs/gulp-smart-changes/index.ts"],
+      "@zilero/gulp-zip-creator": ["libs/gulp-zip-creator/index.ts"],
       "@zilero/gulp-winston-error": ["libs/gulp-winston-error/index.ts"],
-      "@zilero/gulp-plugin-factory": ["libs/gulp-plugin-factory/index.ts"]
     }
   },
   "include": ["global.d.ts"],

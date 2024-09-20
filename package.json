@@ -1,5 +1,6 @@
 {
   "name": "@zilero/gulp-plugins-hub",
+  "description": "A powerful toolkit for managing Gulp plugins in monorepos. Optimized for fast CI/CD environments, this package simplifies the use of multiple Gulp plugins within a single repository, enabling efficient parallel task execution.",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
@@ -9,7 +10,26 @@
   },
   "keywords": [
     "gulp",
-    "plugins"
+    "gulp-plugins",
+    "gulp-tasks",
+    "gulp-monorepo",
+    "gulp-workspaces",
+    "task-runner",
+    "gulp-automation",
+    "gulp-pipeline",
+    "streaming-build",
+    "build-automation",
+    "continuous-integration",
+    "CI/CD",
+    "nodejs",
+    "frontend-build",
+    "workflow-automation",
+    "gulp-scripts",
+    "gulp-tasks-management",
+    "vinyl",
+    "nx",
+    "plugin-management",
+    "monorepo-tools"
   ],
   "bugs": {
     "url": "https://github.com/Zilero232/gulp-plugins-hub"
@@ -22,6 +42,9 @@
     "libs/*"
   ],
   "scripts": {
+    "build": "nx run-many --target build --parallel 8 --exclude nx-dev",
+    "check-format": "nx format:check --all",
+    "test": "nx run-many -t test",
     "prepare": "husky",
     "lint-inspector": "npx @eslint/config-inspector",
     "graph": "nx graph",
@@ -31,13 +54,13 @@
     "v:publish": "pnpm publish --registry http://localhost:4873/"
   },
   "devDependencies": {
-    "@nx/webpack": "^19.6.2",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@commitlint/format": "^19.5.0",
     "@eslint/js": "^9.9.0",
     "@nx/jest": "^19.6.5",
     "@nx/js": "19.6.1",
+    "@nx/webpack": "^19.6.2",
     "@nx/workspace": "19.6.1",
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/jest": "^29.5.12",
@@ -52,8 +75,6 @@
     "globals": "^15.9.0",
     "husky": "^9.1.6",
     "nx": "19.6.1",
-    "ts-jest": "^29.2.5",
-    "typescript-eslint": "^8.2.0",
     "verdaccio": "^5.32.2",
     "vinyl": "^3.0.0"
   }
