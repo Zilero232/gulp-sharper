@@ -1,35 +1,32 @@
 import { transports } from "winston";
-import type Transport from "winston-transport";
+import type TransportStream from "winston-transport";
+import path from "path";
 
-import { createWinstonFormat } from "@utils";
+import { createWinstonFormat } from "../";
 
-import createTransportConfig from "@helpers/createTransportConfig";
+import createTransportConfig from "../../helpers/createTransportConfig";
 
-import type { TransportsOptions, ConsoleTransportOptions, FileTransportOptions, HttpTransportOptions, StreamTransportOptions } from "@types";
+import type { TransportsOptions, ConsoleTransportOptions, FileTransportOptions, HttpTransportOptions, StreamTransportOptions } from "../../types";
 
 interface CreateTransportsOptionsProps {
   pluginName: string;
   options: TransportsOptions;
 }
 
-export const createTransportsOptions = ({ pluginName, options }: CreateTransportsOptionsProps): Transport[] => {
-  const transportsOptions: Transport[] = [];
+export const createTransportsOptions = ({ pluginName, options }: CreateTransportsOptionsProps): TransportStream[] => {
+  const transportsOptions: TransportStream[] = [];
 
   if (options?.console) {
     const defaultConsoleOptions: ConsoleTransportOptions = {
       format: createWinstonFormat({
         pluginName,
-        options: {
-          printf: true,
-          timestamp: true,
-          colorize: true,
-        },
+        options: {},
       }),
     };
 
     transportsOptions.push(
       new transports.Console(
-        createTransportConfig<ConsoleTransportOptions>({
+        createTransportConfig({
           pluginName,
           options: options.console,
           defaultOptions: defaultConsoleOptions,
@@ -40,12 +37,11 @@ export const createTransportsOptions = ({ pluginName, options }: CreateTransport
 
   if (options?.file) {
     const defaultFileOptions: FileTransportOptions = {
-      filename: "application.log",
+      level: "info",
+      filename: path.resolve("gulp-winston-errors.log"),
       format: createWinstonFormat({
         pluginName,
         options: {
-          printf: true,
-          timestamp: true,
           json: true,
         },
       }),
@@ -68,10 +64,7 @@ export const createTransportsOptions = ({ pluginName, options }: CreateTransport
       path: "/log",
       format: createWinstonFormat({
         pluginName,
-        options: {
-          printf: true,
-          timestamp: true,
-        },
+        options: {},
       }),
     };
 
@@ -92,8 +85,6 @@ export const createTransportsOptions = ({ pluginName, options }: CreateTransport
       format: createWinstonFormat({
         pluginName,
         options: {
-          printf: true,
-          timestamp: true,
           simple: true,
         },
       }),

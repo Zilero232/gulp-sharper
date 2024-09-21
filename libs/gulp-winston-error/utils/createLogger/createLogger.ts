@@ -1,8 +1,9 @@
 import { createLogger, type Logger, type LoggerOptions } from "winston";
+import chalk from "chalk";
 
-import { createWinstonFormat, createTransportsOptions } from "@utils";
+import { createWinstonFormat, createTransportsOptions } from "../";
 
-import { GulpWinstonErrorOptions } from "@types";
+import { GulpWinstonErrorOptions } from "../../types";
 
 interface CreateWinstonLoggerProps {
   pluginName: string;
@@ -10,6 +11,18 @@ interface CreateWinstonLoggerProps {
 }
 
 export const createWinstonLogger = ({ pluginName, options }: CreateWinstonLoggerProps): Logger => {
+  const transports = createTransportsOptions({
+    pluginName: pluginName,
+    options: {
+      console: true,
+      ...options.transports,
+    },
+  });
+
+  if (!transports.length) {
+    throw new Error(`${chalk.red("Error:")} ${chalk.yellow("You have not transferred any transport,")} ${chalk.cyan("check the config.")}`);
+  }
+
   const loggerOptions: LoggerOptions = {
     ...options,
     level: "error",
@@ -17,16 +30,14 @@ export const createWinstonLogger = ({ pluginName, options }: CreateWinstonLogger
       pluginName,
       options: {
         printf: true,
+        colorize: true,
+        timestamp: {
+          format: "DATE_ONLY",
+        },
         ...options.format,
       },
     }),
-    transports: createTransportsOptions({
-      pluginName: pluginName,
-      options: {
-        console: true,
-        ...options.transports,
-      },
-    }),
+    transports,
     exitOnError: true,
     silent: false,
   };

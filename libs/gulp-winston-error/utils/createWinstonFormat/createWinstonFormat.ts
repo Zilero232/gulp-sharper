@@ -17,9 +17,9 @@ import {
   createSplatFormat,
   createTimestampFormat,
   createUncolorizeFormat,
-} from "@helpers/formatHelpers";
+} from "../../helpers/formatHelpers";
 
-import { FormatOptions } from "@types";
+import { FormatOptions } from "../../types";
 
 interface CreateWinstonFormatProps {
   pluginName: string;

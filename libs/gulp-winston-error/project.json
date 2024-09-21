@@ -1,5 +1,5 @@
 {
-  "name": "gulp-winston-error",
+  "name": "@zilero/gulp-winston-error",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./",
   "projectType": "library",

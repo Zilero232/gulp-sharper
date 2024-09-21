@@ -1,10 +1,11 @@
 import { format as winstonFormat, Logform as logform } from "winston";
+import chalk from "chalk";
 
-import { InvalidFormatError, getTimestampFormat } from "@utils";
+import { InvalidFormatError, getTimestampFormat } from "../utils";
 
-import { isBoolean, isFunction, isObject, isString } from "@helpers/typeHelpers";
+import { isBoolean, isFunction, isObject, isString } from "../helpers/typeHelpers";
 
-import { FormatOptions, ColorizeOptions } from "@types";
+import { FormatOptions, ColorizeOptions } from "../types";
 
 export function createAlignFormat(AlignOption: FormatOptions["align"]): logform.Format {
   if (isBoolean(AlignOption)) {
@@ -189,28 +190,29 @@ export function createPrintfFormat(pluginName: string, printfOption: FormatOptio
 
       // If the timestamp is passed, add it before the rest of the fields.
       if (timestamp) {
-        logOutput = `${timestamp} `;
+        logOutput = `${chalk.gray(timestamp)} `;
       }
 
       // If there is an error stack, add it after the message.
       if (stack) {
-        logOutput += `\nStack: ${stack}`;
+        logOutput += `\n${chalk.red("Stack")}: ${stack}`;
       }
 
-      logOutput += `[${level}] Plugin: ${pluginName} - ${message}`;
+      // Adding the log level, the plugin name and a message with colors.
+      logOutput += `[${chalk.blue(level)}] Plugin: ${chalk.green(pluginName)} - ${chalk.cyan(message)}`;
 
       // Processing the rest of the metadata.
       Object.entries(meta).forEach(([key, value]) => {
         switch (value) {
           case isBoolean(value):
             // For Boolean values, we show true/false.
-            logOutput += `\n${key}: ${value}`;
+            logOutput += `\n${chalk.magenta(key)}: ${chalk.yellow(value)}`;
           case isObject(value):
             // If the value is an object, output the key and formatted JSON.
-            logOutput += `\n${key}: ${JSON.stringify(value, null, 2)}`;
+            logOutput += `\n${chalk.magenta(key)}: ${chalk.yellow(JSON.stringify(value, null, 2))}`;
           default:
             // Otherwise, just output the key and its value.
-            logOutput += `\n${key}: ${value}`;
+            logOutput += `\n${chalk.magenta(key)}: ${chalk.yellow(value)}`;
         }
       });
 
@@ -236,7 +238,7 @@ export function createTimestampFormat(timestampOption: FormatOptions["timestamp"
 
   if (isObject(timestampOption)) {
     return winstonFormat.timestamp({
-      format: getTimestampFormat(timestampOption),
+      format: getTimestampFormat({ timestampOption: timestampOption.format ?? "" }),
     });
   }
 

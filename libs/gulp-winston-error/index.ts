@@ -1,10 +1,10 @@
 import chalk from "chalk";
 
-import { createWinstonLogger } from "@utils";
+import { createWinstonLogger } from "./utils";
 
-import { isError } from "@helpers/typeHelpers";
+import { isError } from "./helpers/typeHelpers";
 
-import type { GulpWinstonErrorOptions } from "@types";
+import type { GulpWinstonErrorOptions } from "./types";
 
 interface GulpWinstonErrorProps {
   pluginName: string; // The name of the plugin (required).
@@ -24,7 +24,7 @@ const GulpWinstonError = ({ pluginName, message = "", options = {}, error }: Gul
 
   const logMessage = message || (isError(error) ? error.message : "An error occurred");
 
-  if (logMessage) {
+  if (!logMessage) {
     throw new Error(`${chalk.green("GulpWinstonError")}: ${chalk.red("Missing Message")}`);
   }
 
@@ -32,13 +32,13 @@ const GulpWinstonError = ({ pluginName, message = "", options = {}, error }: Gul
 
   if (error && error instanceof Error) {
     logger.error(logMessage, {
-      level: options.level as string,
+      level: options.level as string || "error",
       message: logMessage || error.message,
-      stack: error.stack,
+      stack: error.stack || false,
     });
   } else {
     logger.log({
-      level: options.level as string,
+      level: (options.level as string) || "error",
       message: logMessage,
     });
   }

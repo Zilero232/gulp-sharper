@@ -2,12 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
-    "sourceMap": true,
-    "paths": {
-      "@types": ["libs/gulp-winston-error/types/index.ts"],
-      "@utils": ["libs/gulp-winston-error/utils/index.ts"],
-      "@helpers/*": ["libs/gulp-winston-error/helpers/*"]
-    }
+    "sourceMap": true
   },
   "include": [],
   "references": [

@@ -1,19 +1,23 @@
-import { InvalidFormatError } from "@utils";
+import { InvalidFormatError } from "../../utils";
 
-import { isBoolean, isString } from "@helpers/typeHelpers";
+import { isBoolean, isString } from "../../helpers/typeHelpers";
 
-import { FormatOptions, TimestampFormat } from "@types";
+import { TimestampFormat } from "../../types";
 
 const formatMapping: Record<TimestampFormat, string> = {
   FULL_DATE: "YYYY-MM-DD HH:mm:ss",
-  SHORT: "DD/MM/YYYY HH:mm",
-  TIME_ONLY: "HH:mm:ss",
   DATE_ONLY: "YYYY-MM-DD",
+  TIME_ONLY: "HH:mm:ss",
+  SHORT: "DD/MM/YYYY HH:mm",
   ISO: "YYYY-MM-DDTHH:mm:ss.SSSZ",
   UNIX: "X",
 };
 
-export const getTimestampFormat = (timestampOption?: FormatOptions["timestamp"]) => {
+interface GetTimestampFormat {
+  timestampOption: TimestampFormat | string;
+}
+
+export const getTimestampFormat = ({ timestampOption }: GetTimestampFormat) => {
   if (isBoolean(timestampOption)) {
     return formatMapping.FULL_DATE;
   }

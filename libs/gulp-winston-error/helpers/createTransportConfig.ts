@@ -1,6 +1,6 @@
-import { createWinstonFormat } from "@utils";
+import { createWinstonFormat } from "../utils";
 
-import { isBoolean, isObject } from "@helpers/typeHelpers";
+import { isBoolean, isObject } from "../helpers/typeHelpers";
 
 interface TransportOptions {
   format?: unknown;

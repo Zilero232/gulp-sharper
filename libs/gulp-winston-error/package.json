@@ -16,11 +16,6 @@
   "bugs": {
     "url": "https://github.com/Zilero232/gulp-plugins-hub/issues"
   },
-  "scripts": {
-    "format": "prettier --write \"*.ts\"",
-    "lint": "eslint . --fix",
-    "lint-inspector": "npx @eslint/config-inspector"
-  },
   "keywords": [],
   "engines": {
     "node": ">= 6.0"
