@@ -1,0 +1,20 @@
+{
+  "name": "<%= name %>",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "./",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "options": {
+        "main": "libs/<%= name %>/index.ts",
+        "outputPath": "libs/<%= name %>/build",
+        "outputFileName": "index.js",
+        "deleteOutputPath": true,
+        "tsConfig": "libs/<%= name %>/tsconfig.json",
+        "babelConfig": "tools/config/babel/babel.config.json",
+        "webpackConfig": "tools/config/webpack/webpack.config.js"
+      }
+    }
+  }
+}
