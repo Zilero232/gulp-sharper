@@ -1,9 +1,8 @@
 {
-  "name": "gulp-conditional",
-  "description": "A Gulp plugin for executing different functions based on specified conditions, enabling flexible task management in Gulp workflows.",
+  "name": "gulp-refilename",
+  "description": "",
   "version": "1.0.0",
   "license": "MIT",
-  "type": "module",
   "author": {
     "name": "Artemev Alexandr",
     "url": "https://github.com/Zilero232"
@@ -16,14 +15,7 @@
   "bugs": {
     "url": "https://github.com/Zilero232/gulp-plugins-hub/issues"
   },
-  "keywords": [
-    "gulp",
-    "conditional",
-    "functions",
-    "task management",
-    "plugin",
-    "workflow"
-  ],
+  "keywords": [],
   "engines": {
     "node": ">= 6.0"
   },

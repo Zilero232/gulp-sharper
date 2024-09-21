@@ -43,6 +43,7 @@
   ],
   "scripts": {
     "build": "nx run-many --target build --parallel 8 --exclude nx-dev",
+    "generator-plugin": "nx g @zilero/workspace-plugin:create-folder-plugin",
     "check-format": "nx format:check --all",
     "test": "nx run-many -t test",
     "prepare": "husky",

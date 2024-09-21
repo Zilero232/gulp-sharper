@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "generators": "./generators.json",
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
   "type": "commonjs",
   "main": "./src/index.js",
-  "typings": "./src/index.d.ts"
+  "devDependencies": {
+    "@nx/devkit": "^19.8.0",
+    "@swc-node/register": "^1.10.9",
+    "@swc/core": "^1.7.26",
+    "@swc/helpers": "^0.5.13"
+  }
 }

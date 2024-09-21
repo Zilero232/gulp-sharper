@@ -30,8 +30,8 @@
       "@zilero/gulp-scss-squeezer": ["libs/gulp-scss-squeezer/index.ts"],
       "@zilero/gulp-sharper": ["libs/gulp-sharper/index.ts"],
       "@zilero/gulp-smart-changes": ["libs/gulp-smart-changes/index.ts"],
-      "@zilero/gulp-zip-creator": ["libs/gulp-zip-creator/index.ts"],
       "@zilero/gulp-winston-error": ["libs/gulp-winston-error/index.ts"],
+      "@zilero/gulp-zip-creator": ["libs/gulp-zip-creator/index.ts"]
     }
   },
   "include": ["global.d.ts"],

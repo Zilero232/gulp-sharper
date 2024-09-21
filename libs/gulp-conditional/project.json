@@ -1,5 +1,5 @@
 {
-  "name": "gulp-conditional",
+  "name": "@zilero/gulp-conditional",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./",
   "projectType": "library",
