@@ -10,6 +10,11 @@ interface CreateWinstonLoggerProps {
   options: GulpWinstonErrorOptions;
 }
 
+/**
+ * Creates a winston logger with a given plugin name and options.
+ *
+ * @returns {Logger} - A winston logger.
+ */
 export const createWinstonLogger = ({ pluginName, options }: CreateWinstonLoggerProps): Logger => {
   const transports = createTransportsOptions({
     pluginName: pluginName,
@@ -20,7 +25,7 @@ export const createWinstonLogger = ({ pluginName, options }: CreateWinstonLogger
   });
 
   if (!transports.length) {
-    throw new Error(`${chalk.red("Error:")} ${chalk.yellow("You have not transferred any transport,")} ${chalk.cyan("check the config.")}`);
+    throw new Error(`${chalk.red("Error:")} ${chalk.yellow("No transports configured")} ${chalk.cyan("check the config")}`);
   }
 
   const loggerOptions: LoggerOptions = {

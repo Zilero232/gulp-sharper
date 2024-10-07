@@ -78,5 +78,8 @@
     "nx": "19.6.1",
     "verdaccio": "^5.32.2",
     "vinyl": "^3.0.0"
+  },
+  "dependencies": {
+    "chalk": "4.1.2"
   }
 }

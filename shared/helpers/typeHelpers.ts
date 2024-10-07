@@ -32,6 +32,17 @@ export function isString(value: unknown): value is string {
 }
 
 /**
+ * Checks if the value is a number.
+ *
+ * @param value The value to check.
+ *
+ * @returns `true` if the value is a number, otherwise `false`.
+ */
+export function isNumber(value: unknown): value is number {
+  return typeof value === "number" && !isNaN(value);
+}
+
+/**
  * Checks if the value is an instance of Error.
  *
  * @param value The value to check.

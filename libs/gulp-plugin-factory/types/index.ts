@@ -16,7 +16,7 @@ export type OnFile = (file: FileVinyl, encoding: BufferEncoding, stream: Transfo
 export type OnFinish = (stream: TransformStream) => unknown;
 
 // Defining the type for the transformation function.
-export type Transformer = (file: FileVinyl, encoding: BufferEncoding, stream: TransformStream) => Promise<File | void>;
+export type Transformer = (file: FileVinyl, encoding: BufferEncoding, stream: TransformStream) => Promise<FileVinyl | void>;
 
 // Defining the type for the thread termination function.
 export type Flusher = (stream: TransformStream) => Promise<void> | void;

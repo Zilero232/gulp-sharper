@@ -26,6 +26,16 @@ interface CreateWinstonFormatProps {
   options: FormatOptions;
 }
 
+/**
+ * Creates a winston format, given a boolean or format options.
+ * If boolean, it will return the default options. If format options, it will
+ * merge the options with the default options and return the result.
+ * The following formats are supported: align, cli, colorize, errors, json,
+ * label, logstash, metadata, ms, padLevels, prettyPrint, printf, simple,
+ * splat, timestamp, and uncolorize.
+ *
+ * @returns {logform.Format}
+ */
 export function createWinstonFormat({ pluginName, options }: CreateWinstonFormatProps): logform.Format {
   const formats: logform.Format[] = [];
 

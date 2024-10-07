@@ -1,12 +1,19 @@
 import { format as winstonFormat, Logform as logform } from "winston";
 import chalk from "chalk";
 
-import { InvalidFormatError, getTimestampFormat } from "../utils";
+import { InvalidFormatError } from "@shared/utils";
+import { isBoolean, isFunction, isObject, isString } from "@shared/helpers/typeHelpers";
 
-import { isBoolean, isFunction, isObject, isString } from "../helpers/typeHelpers";
+import { getTimestampFormat } from "../utils";
 
 import { FormatOptions, ColorizeOptions } from "../types";
 
+/**
+ * Creates a winston align format, given a boolean.
+ * If boolean, it will return the default align options.
+ *
+ * @returns {logform.Format}
+ */
 export function createAlignFormat(AlignOption: FormatOptions["align"]): logform.Format {
   if (isBoolean(AlignOption)) {
     return winstonFormat.align();
@@ -14,11 +21,18 @@ export function createAlignFormat(AlignOption: FormatOptions["align"]): logform.
 
   throw new InvalidFormatError({
     fieldName: "align",
-    expectedType: "boolean",
     receivedValue: AlignOption,
+    expectedType: "boolean",
   });
 }
 
+/**
+ * Creates a winston cli format, given a boolean or CliOptions.
+ * If boolean, it will return the default cli options.
+ * If CliOptions, it will return the cli format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createCliFormat(CliOption: FormatOptions["cli"]): logform.Format {
   if (isBoolean(CliOption)) {
     return winstonFormat.cli();
@@ -35,6 +49,13 @@ export function createCliFormat(CliOption: FormatOptions["cli"]): logform.Format
   });
 }
 
+/**
+ * Creates a winston colorize format, given a boolean or ColorizeOptions.
+ * If boolean, it will return the default colorize options.
+ * If ColorizeOptions, it will return the colorize format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createColorizeFormat(colorizeOption: FormatOptions["colorize"]): logform.Format {
   const defaultColorizeOption: ColorizeOptions = {
     colors: {
@@ -63,6 +84,13 @@ export function createColorizeFormat(colorizeOption: FormatOptions["colorize"]):
   });
 }
 
+/**
+ * Creates a winston errors format, given a boolean or errorsOption.
+ * If boolean, it will return the default errors options with stack set to false.
+ * If errorsOption, it will return the errors format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createErrorsFormat(errorsOption: FormatOptions["errors"]): logform.Format {
   if (isBoolean(errorsOption)) {
     return winstonFormat.errors({ stack: false });
@@ -79,6 +107,13 @@ export function createErrorsFormat(errorsOption: FormatOptions["errors"]): logfo
   });
 }
 
+/**
+ * Creates a winston json format, given a boolean or jsonOption.
+ * If boolean, it will return the default json options.
+ * If jsonOption, it will return the json format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createJsonFormat(jsonOption: FormatOptions["json"]): logform.Format {
   if (isBoolean(jsonOption)) {
     return winstonFormat.json();
@@ -95,6 +130,13 @@ export function createJsonFormat(jsonOption: FormatOptions["json"]): logform.For
   });
 }
 
+/**
+ * Creates a winston label format, given a string or LabelOptions.
+ * If string, it will return the label format with the given label.
+ * If LabelOptions, it will return the label format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createLabelFormat(labelOption: FormatOptions["label"]): logform.Format {
   if (isString(labelOption)) {
     return winstonFormat.label({ label: labelOption });
@@ -111,6 +153,12 @@ export function createLabelFormat(labelOption: FormatOptions["label"]): logform.
   });
 }
 
+/**
+ * Creates a winston logstash format, given a boolean.
+ * If boolean, it will return the default logstash options.
+ *
+ * @returns {logform.Format}
+ */
 export function createLogstashFormat(LogstashOption: FormatOptions["logstash"]): logform.Format {
   if (isBoolean(LogstashOption)) {
     return winstonFormat.logstash();
@@ -123,6 +171,13 @@ export function createLogstashFormat(LogstashOption: FormatOptions["logstash"]):
   });
 }
 
+/**
+ * Creates a winston metadata format, given a boolean or MetadataOptions.
+ * If boolean, it will return the default metadata options.
+ * If MetadataOptions, it will return the metadata format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createMetadataFormat(metadataOption: FormatOptions["metadata"]): logform.Format {
   if (isBoolean(metadataOption)) {
     return winstonFormat.metadata();
@@ -139,6 +194,12 @@ export function createMetadataFormat(metadataOption: FormatOptions["metadata"]):
   });
 }
 
+/**
+ * Creates a winston ms format, given a boolean.
+ * If boolean, it will return the default ms options.
+ *
+ * @returns {logform.Format}
+ */
 export function createMsFormat(MsOption: FormatOptions["ms"]): logform.Format {
   if (isBoolean(MsOption)) {
     return winstonFormat.ms();
@@ -151,6 +212,13 @@ export function createMsFormat(MsOption: FormatOptions["ms"]): logform.Format {
   });
 }
 
+/**
+ * Creates a winston padLevels format, given a boolean or PadLevelsOptions.
+ * If boolean, it will return the default padLevels options.
+ * If PadLevelsOptions, it will return the padLevels format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createPadLevelsFormat(padLevelsOption: FormatOptions["padLevels"]): logform.Format {
   if (isBoolean(padLevelsOption)) {
     return winstonFormat.padLevels();
@@ -167,6 +235,13 @@ export function createPadLevelsFormat(padLevelsOption: FormatOptions["padLevels"
   });
 }
 
+/**
+ * Creates a winston prettyPrint format, given a boolean or PrettyPrintOptions.
+ * If boolean, it will return the default prettyPrint options.
+ * If PrettyPrintOptions, it will return the prettyPrint format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createPrettyPrintFormat(prettyPrintOption: FormatOptions["prettyPrint"]): logform.Format {
   if (isBoolean(prettyPrintOption)) {
     return winstonFormat.prettyPrint();
@@ -183,6 +258,19 @@ export function createPrettyPrintFormat(prettyPrintOption: FormatOptions["pretty
   });
 }
 
+/**
+ * Creates a winston printf format, given a boolean or a custom format function.
+ * If boolean, it will return the default printf format with the following format:
+ * - timestamp (if provided)
+ * - log level
+ * - plugin name
+ * - log message
+ * - error stack (if provided)
+ * - metadata (if present)
+ * If custom format function, it will return the format with the given function.
+ *
+ * @returns {logform.Format}
+ */
 export function createPrintfFormat(pluginName: string, printfOption: FormatOptions["printf"]): logform.Format {
   if (isBoolean(printfOption)) {
     return winstonFormat.printf(({ timestamp, level, message, stack, ...meta }) => {
@@ -231,6 +319,14 @@ export function createPrintfFormat(pluginName: string, printfOption: FormatOptio
   });
 }
 
+/**
+ * Creates a winston timestamp format, given a boolean or TimestampOptions.
+ * If boolean, it will return the default timestamp options.
+ * If TimestampOptions, it will return the timestamp format with the given options.
+ * The format of the timestamp is determined by the getTimestampFormat utility function.
+ *
+ * @returns {logform.Format}
+ */
 export function createTimestampFormat(timestampOption: FormatOptions["timestamp"]): logform.Format {
   if (isBoolean(timestampOption)) {
     return winstonFormat.timestamp();
@@ -249,6 +345,12 @@ export function createTimestampFormat(timestampOption: FormatOptions["timestamp"
   });
 }
 
+/**
+ * Creates a winston simple format, given a boolean.
+ * If boolean, it will return the default simple options.
+ *
+ * @returns {logform.Format}
+ */
 export function createSimpleFormat(simpleOption: FormatOptions["simple"]): logform.Format {
   if (isBoolean(simpleOption)) {
     return winstonFormat.simple();
@@ -261,6 +363,12 @@ export function createSimpleFormat(simpleOption: FormatOptions["simple"]): logfo
   });
 }
 
+/**
+ * Creates a winston splat format, given a boolean.
+ * If boolean, it will return the default splat options.
+ *
+ * @returns {logform.Format}
+ */
 export function createSplatFormat(splatOption: FormatOptions["splat"]): logform.Format {
   if (isBoolean(splatOption)) {
     return winstonFormat.splat();
@@ -273,6 +381,13 @@ export function createSplatFormat(splatOption: FormatOptions["splat"]): logform.
   });
 }
 
+/**
+ * Creates a winston uncolorize format, given a boolean or UncolorizeOptions.
+ * If boolean, it will return the default uncolorize options.
+ * If UncolorizeOptions, it will return the uncolorize format with the given options.
+ *
+ * @returns {logform.Format}
+ */
 export function createUncolorizeFormat(uncolorizeOption: FormatOptions["uncolorize"]): logform.Format {
   if (isBoolean(uncolorizeOption)) {
     return winstonFormat.uncolorize();

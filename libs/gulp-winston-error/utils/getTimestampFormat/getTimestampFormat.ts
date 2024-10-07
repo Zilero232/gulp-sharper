@@ -1,6 +1,5 @@
-import { InvalidFormatError } from "../../utils";
-
-import { isBoolean, isString } from "../../helpers/typeHelpers";
+import { InvalidFormatError } from "@shared/utils";
+import { isBoolean, isString } from "@shared/helpers/typeHelpers";
 
 import { TimestampFormat } from "../../types";
 
@@ -17,6 +16,15 @@ interface GetTimestampFormat {
   timestampOption: TimestampFormat | string;
 }
 
+/**
+ * Given a timestampOption, returns the corresponding date format string.
+ * If the option is a boolean, it will return the FULL_DATE format.
+ * If the option is a string, it will return the corresponding date format string
+ * from the formatMapping object, or the string itself if it is not found in the object.
+ * If the option is neither a boolean nor a string, it will throw an InvalidFormatError.
+ *
+ * @returns string
+ */
 export const getTimestampFormat = ({ timestampOption }: GetTimestampFormat) => {
   if (isBoolean(timestampOption)) {
     return formatMapping.FULL_DATE;
@@ -28,7 +36,7 @@ export const getTimestampFormat = ({ timestampOption }: GetTimestampFormat) => {
 
   throw new InvalidFormatError({
     fieldName: "align",
-    expectedType: "boolean or TimestampFormat",
     receivedValue: timestampOption,
+    expectedType: "boolean or TimestampFormat",
   });
 };

@@ -13,6 +13,13 @@ interface CreateTransportsOptionsProps {
   options: TransportsOptions;
 }
 
+/**
+ * Creates an array of winston transport options based on the given options.
+ *
+ * The function supports the following transports: Console, File, Http, and Stream.
+ *
+ * @returns {TransportStream[]} - An array of winston transport options.
+ */
 export const createTransportsOptions = ({ pluginName, options }: CreateTransportsOptionsProps): TransportStream[] => {
   const transportsOptions: TransportStream[] = [];
 

@@ -2,7 +2,7 @@ import chalk from "chalk";
 
 import { createWinstonLogger } from "./utils";
 
-import { isError } from "./helpers/typeHelpers";
+import { isError } from "@shared/helpers/typeHelpers";
 
 import type { GulpWinstonErrorOptions } from "./types";
 
@@ -13,6 +13,7 @@ interface GulpWinstonErrorProps {
   error?: Error;
 }
 
+/** Logs an error using the winston plugin. */
 const GulpWinstonError = ({ pluginName, message = "", options = {}, error }: GulpWinstonErrorProps) => {
   if (!pluginName) {
     throw new Error(`${chalk.green("GulpWinstonError")}: ${chalk.red("Missing PluginName")}`);
@@ -32,7 +33,7 @@ const GulpWinstonError = ({ pluginName, message = "", options = {}, error }: Gul
 
   if (error && error instanceof Error) {
     logger.error(logMessage, {
-      level: options.level as string || "error",
+      level: (options.level as string) || "error",
       message: logMessage || error.message,
       stack: error.stack || false,
     });

@@ -31,9 +31,11 @@
       "@zilero/gulp-sharper": ["libs/gulp-sharper/index.ts"],
       "@zilero/gulp-smart-changes": ["libs/gulp-smart-changes/index.ts"],
       "@zilero/gulp-winston-error": ["libs/gulp-winston-error/index.ts"],
-      "@zilero/gulp-zip-creator": ["libs/gulp-zip-creator/index.ts"]
+      "@zilero/gulp-zip-creator": ["libs/gulp-zip-creator/index.ts"],
+
+      "@shared/*": ["shared/*"]
     }
   },
-  "include": ["global.d.ts"],
+  "include": ["global.d.ts", "**/*.ts"],
   "exclude": ["node_modules", "tmp"]
 }

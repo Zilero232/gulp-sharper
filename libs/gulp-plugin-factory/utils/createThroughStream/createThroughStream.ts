@@ -2,15 +2,17 @@ import through2, { type TransformCallback } from "through2";
 
 import GulpWinstonError from "@zilero/gulp-winston-error";
 
-import type { Transformer, Flusher, TransformStream } from "../../types";
+import { isFunction } from "@shared/helpers/typeHelpers";
 
-import { handleUnknownError } from "../handleUnknownError/handleUnknownError";
+import { handleUnknownError } from "../../../../shared/utils/handleUnknownError/handleUnknownError";
+
+import type { Transformer, Flusher, TransformStream } from "../../types";
 
 import { PLUGIN_NAME } from "../../constants";
 
 export const createThroughStream = (transformer: Transformer, flusher: Flusher): TransformStream => {
   // Checking for the presence of the transformer function.
-  if (!transformer || typeof transformer !== "function") {
+  if (!transformer || !isFunction(transformer)) {
     GulpWinstonError({
       pluginName: PLUGIN_NAME,
       message: "Transformer function is required and must be a function.",
@@ -18,7 +20,7 @@ export const createThroughStream = (transformer: Transformer, flusher: Flusher):
   }
 
   // Checking for the presence of the flusher function.
-  if (flusher && typeof flusher !== "function") {
+  if (flusher && !isFunction(flusher)) {
     GulpWinstonError({
       pluginName: "Plugin",
       message: "Flusher function is required and must be a function.",
@@ -56,7 +58,7 @@ export const createThroughStream = (transformer: Transformer, flusher: Flusher):
     },
     async function (this: TransformStream): Promise<void> {
       try {
-        flusher(this);
+        await flusher(this);
       } catch (error: unknown) {
         handleUnknownError({
           pluginName: PLUGIN_NAME,
