@@ -1,7 +1,8 @@
 import { InvalidFormatError } from "@shared/utils";
 import { isObject } from "@shared/helpers/typeHelpers";
 
-import createFormat from "../../helpers/createFormatMethod";
+import isValidFormatMethod from "../../helpers/isValidFormatMethod";
+import createFormatMethod from "../../helpers/createFormatMethod";
 
 import { InitialSharp, GulpSharperOptions, SupportedFormatMethod } from "../../types";
 
@@ -33,15 +34,18 @@ export function createSharpFormats({ pipeline, formats }: CreateSharpFormatsProp
 
   // Through each format and call the appropriate processing.
   (Object.keys(formats) as SupportedFormatMethod[]).forEach((format) => {
+    // Add warning if the key is not a valid format options.
+    if (!isValidFormatMethod(format)) {
+      return;
+    }
+
     const options = formats[format];
 
-    if (options) {
-      createFormat({
-        pipeline,
-        options,
-        method: format, // Dynamically passing the format as a method.
-      });
-    }
+    createFormatMethod({
+      pipeline,
+      options,
+      method: format, // Dynamically passing the format as a method.
+    });
   });
 
   return pipeline;

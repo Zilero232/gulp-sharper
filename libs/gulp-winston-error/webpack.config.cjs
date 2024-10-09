@@ -7,7 +7,6 @@ module.exports = composePlugins(withNx(), (config) => {
     ...config.resolve,
     fallback: {
       ...config.resolve?.fallback,
-      fs: false,
       assert: require.resolve("assert/"),
       util: require.resolve("util/"),
       url: require.resolve("url/"),
@@ -18,6 +17,7 @@ module.exports = composePlugins(withNx(), (config) => {
       tty: require.resolve("tty-browserify"),
       http: require.resolve("stream-http"),
       https: require.resolve("https-browserify"),
+      fs: false,
     },
   };
 

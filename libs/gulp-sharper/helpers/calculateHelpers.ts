@@ -7,12 +7,12 @@ import { isNumber } from "@shared/helpers/typeHelpers";
  * @param sizeInBytes - The size in bytes.
  *
  * @returns {string} - The size in kilobytes formatted to two decimal places.
- * @throws {Error} - Throws an error if the input is not a number or is negative.
+ * @throws {Error} - Throws an error if the input is not a number.
  */
 export const convertBytesToKB = (sizeInBytes: number): string => {
   if (!isNumber(sizeInBytes)) {
     throw new InvalidFormatError({
-      fieldName: "convertBytesToKB: sizeInBytes",
+      fieldName: "СonvertBytesToKB: sizeInBytes",
       receivedValue: sizeInBytes,
       expectedType: "number",
     });
@@ -28,12 +28,12 @@ export const convertBytesToKB = (sizeInBytes: number): string => {
  * @param compressedSize - The compressed size in bytes.
  *
  * @returns {string} - The percentage reduction in size, formatted to two decimal places.
- * @throws {Error} - Throws an error if the input is not a number, is negative, or if originalSize is less than or equal to compressedSize.
+ * @throws {Error} - Throws an error if the input is not a number.
  */
 export const calculateReductionPercentage = (originalSize: number, compressedSize: number): string => {
   if (!isNumber(originalSize)) {
     throw new InvalidFormatError({
-      fieldName: "calculateReductionPercentage: originalSize",
+      fieldName: "СalculateReductionPercentage: originalSize",
       receivedValue: originalSize,
       expectedType: "number",
     });
@@ -41,7 +41,7 @@ export const calculateReductionPercentage = (originalSize: number, compressedSiz
 
   if (!isNumber(originalSize)) {
     throw new InvalidFormatError({
-      fieldName: "calculateReductionPercentage: compressedSize",
+      fieldName: "СalculateReductionPercentage: compressedSize",
       receivedValue: compressedSize,
       expectedType: "number",
     });

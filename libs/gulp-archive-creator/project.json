@@ -1,5 +1,5 @@
 {
-  "name": "@zilero/gulp-plugin-factory",
+  "name": "gulp-archive-creator",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./",
   "projectType": "library",
@@ -7,11 +7,11 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "options": {
-        "main": "libs/gulp-plugin-factory/index.ts",
-        "outputPath": "libs/gulp-plugin-factory/build",
+        "main": "libs/gulp-archive-creator/index.ts",
+        "outputPath": "libs/gulp-archive-creator/build",
         "outputFileName": "index.js",
         "deleteOutputPath": true,
-        "tsConfig": "libs/gulp-plugin-factory/tsconfig.json",
+        "tsConfig": "libs/gulp-archive-creator/tsconfig.json",
         "babelConfig": "tools/config/babel/babel.config.json",
         "webpackConfig": "tools/config/webpack/webpack.config.js"
       }

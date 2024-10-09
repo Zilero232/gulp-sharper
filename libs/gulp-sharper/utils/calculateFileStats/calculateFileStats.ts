@@ -23,7 +23,7 @@ interface CalculateFileStatsProps {
 export const calculateFileStats = ({ filePath, originalSize, compressedSize }: CalculateFileStatsProps): void => {
   if (!filePath || !isString(filePath)) {
     throw new InvalidFormatError({
-      fieldName: "filePath",
+      fieldName: "CalculateFileStats: filePath",
       receivedValue: filePath,
       expectedType: "string",
     });
@@ -31,7 +31,7 @@ export const calculateFileStats = ({ filePath, originalSize, compressedSize }: C
 
   if (!originalSize || !isNumber(originalSize)) {
     throw new InvalidFormatError({
-      fieldName: "originalSize",
+      fieldName: "CalculateFileStats: originalSize",
       receivedValue: originalSize,
       expectedType: "number",
     });
@@ -39,7 +39,7 @@ export const calculateFileStats = ({ filePath, originalSize, compressedSize }: C
 
   if (!compressedSize || !isNumber(compressedSize)) {
     throw new InvalidFormatError({
-      fieldName: "compressedSize",
+      fieldName: "CalculateFileStats: compressedSize",
       receivedValue: compressedSize,
       expectedType: "number",
     });

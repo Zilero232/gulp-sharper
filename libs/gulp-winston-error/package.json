@@ -27,7 +27,10 @@
   "devDependencies": {
     "@types/winston": "^2.4.4",
     "typescript-eslint": "^8.2.0",
-    "ts-jest": "^29.2.5",
+    "ts-jest": "^29.2.5"
+  },
+  "dependencies": {
+    "winston": "^3.14.2",
     "strip-ansi": "^6.0.1",
     "assert": "^2.1.0",
     "util": "^0.12.5",
@@ -39,8 +42,5 @@
     "stream-http": "^3.2.0",
     "https-browserify": "^1.0.0",
     "tty-browserify": "^0.0.1"
-  },
-  "dependencies": {
-    "winston": "^3.14.2"
   }
 }

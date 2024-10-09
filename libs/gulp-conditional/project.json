@@ -7,11 +7,11 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "options": {
-        "main": "libs/gulp-error-reporter/index.ts",
-        "outputPath": "libs/gulp-error-reporter/build",
+        "main": "libs/gulp-conditional/index.ts",
+        "outputPath": "libs/gulp-conditional/build",
         "outputFileName": "index.js",
         "deleteOutputPath": true,
-        "tsConfig": "libs/gulp-error-reporter/tsconfig.json",
+        "tsConfig": "libs/gulp-conditional/tsconfig.json",
         "babelConfig": "tools/config/babel/babel.config.json",
         "webpackConfig": "tools/config/webpack/webpack.config.js"
       }

@@ -1,0 +1,34 @@
+import GulpPluginFactory from "@zilero/gulp-plugin-factory";
+import GulpWinstonError from "@zilero/gulp-winston-error";
+
+import { handleUnknownError } from "@shared/utils";
+
+import { PLUGIN_NAME } from "./constants";
+
+const <%= PluginName %> = () => {
+  return GulpPluginFactory({
+    pluginName: PLUGIN_NAME,
+    onFile: async (file: FileVinyl) => {
+      try {
+        return file;
+      } catch (error: unknown) {
+        return handleUnknownError({
+          pluginName: PLUGIN_NAME,
+          message: "An error occurred while processing the file.",
+          error,
+        });
+      }
+    },
+    onFinish: () => {
+      GulpWinstonError({
+        pluginName: PLUGIN_NAME,
+        message: "No images were processed.",
+        options: {
+          level: "warn",
+        },
+      });
+    },
+  });
+}
+
+export default <%= PluginName %>;

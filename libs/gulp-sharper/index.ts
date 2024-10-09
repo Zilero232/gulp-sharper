@@ -56,7 +56,7 @@ const GulpSharper = (
         pipeline = createSharpFormats({ pipeline, formats: options.formats });
 
         // Applying various transformations to the image.
-        pipeline = createSharpTransformations({ pipeline, options });
+        pipeline = createSharpTransformations({ pipeline, transformations: options });
 
         // Receive the processed data as a Buffer.
         const processedBuffer = await pipeline.toBuffer();

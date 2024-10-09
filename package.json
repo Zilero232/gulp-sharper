@@ -42,11 +42,11 @@
     "libs/*"
   ],
   "scripts": {
-    "build": "nx run-many --target build --parallel 8 --exclude nx-dev",
+    "prepare": "husky",
     "generator-plugin": "nx g @zilero/workspace-plugin:create-folder-plugin",
     "check-format": "nx format:check --all",
     "test": "nx run-many -t test",
-    "prepare": "husky",
+    "build": "nx run-many --target build --parallel 8 --exclude nx-dev",
     "lint-inspector": "npx @eslint/config-inspector",
     "graph": "nx graph",
     "v:local-registry": "nx local-registry dev-config-hub",
@@ -55,6 +55,8 @@
     "v:publish": "pnpm publish --registry http://localhost:4873/"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.25.7",
+    "@babel/preset-typescript": "^7.25.7",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@commitlint/format": "^19.5.0",

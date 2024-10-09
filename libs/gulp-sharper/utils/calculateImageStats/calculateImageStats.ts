@@ -23,7 +23,7 @@ interface CalculateImageStatsProps {
 export const calculateImageStats = ({ totalImagesProcessed, totalOriginalSize, totalCompressedSize }: CalculateImageStatsProps): void => {
   if (!totalImagesProcessed || !isNumber(totalImagesProcessed)) {
     throw new InvalidFormatError({
-      fieldName: "totalImagesProcessed",
+      fieldName: "CalculateImageStats: totalImagesProcessed",
       receivedValue: totalImagesProcessed,
       expectedType: "number",
     });
@@ -31,7 +31,7 @@ export const calculateImageStats = ({ totalImagesProcessed, totalOriginalSize, t
 
   if (!totalOriginalSize || !isNumber(totalOriginalSize)) {
     throw new InvalidFormatError({
-      fieldName: "totalOriginalSize",
+      fieldName: "CalculateImageStats: totalOriginalSize",
       receivedValue: totalOriginalSize,
       expectedType: "number",
     });
@@ -39,7 +39,7 @@ export const calculateImageStats = ({ totalImagesProcessed, totalOriginalSize, t
 
   if (!totalCompressedSize || !isNumber(totalCompressedSize)) {
     throw new InvalidFormatError({
-      fieldName: "totalCompressedSize",
+      fieldName: "CalculateImageStats: totalCompressedSize",
       receivedValue: totalCompressedSize,
       expectedType: "number",
     });
